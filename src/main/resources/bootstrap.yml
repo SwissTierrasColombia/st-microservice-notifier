@@ -13,8 +13,8 @@ spring:
   profiles: develop
   cloud:
     config:
-      failFast: false
-      uri: http://localhost:8899
+      failFast: true
+      uri: http://localhost:8889
       
 ---
 spring:

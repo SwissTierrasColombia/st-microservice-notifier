@@ -23,6 +23,7 @@ spring:
     properties:
       mail:
         smtp:
+          from: mailing@geolinksas.com
           auth: true
           ssl:
             enable: true
