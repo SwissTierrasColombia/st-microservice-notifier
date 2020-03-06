@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: st-microservice-notifier
+  profiles:
+    active: 
+      - "develop"
+  cloud:
+    config:
+      enabled: true
+      
+---
+spring:
+  profiles: develop
+  cloud:
+    config:
+      failFast: false
+      uri: http://localhost:8899
+      
+---
+spring:
+  profiles: production
+  cloud:
+    config:
+      failFast: true
+      uri: http://st-config-server:8890
