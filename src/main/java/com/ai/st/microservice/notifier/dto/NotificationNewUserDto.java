@@ -1,6 +1,7 @@
 package com.ai.st.microservice.notifier.dto;
 
 import java.io.Serializable;
+import java.nio.charset.*;
 
 public class NotificationNewUserDto implements Serializable {
 
@@ -75,7 +76,8 @@ public class NotificationNewUserDto implements Serializable {
 	}
 
 	public String getSubject() {
-		return "Notificación Sistema de Transición Barrido Predial – Creación/modificación de Usuario";
+		String value = new String("Notificación Sistema de Transición Barrido Predial – Creación/modificación de Usuario".getBytes(), Charset.forName("UTF-8")); 
+		return value;
 	}
 
 	public String getBody() {

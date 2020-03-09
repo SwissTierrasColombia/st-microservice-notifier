@@ -50,7 +50,7 @@ public class RabbitMQNotificationListener {
 		MimeMessage msg = javaMailSender.createMimeMessage();
         MimeMessageHelper helper;
 		try {
-			helper = new MimeMessageHelper(msg, true);
+			helper = new MimeMessageHelper(msg, true, "UTF-8");
 			helper.setTo(message.getEmail());
 			helper.setSubject(message.getSubject());
 			helper.setText(message.getMessage(), true);

@@ -16,13 +16,15 @@ spring:
     hibernate.ddl-auto: create
   mail:
     protocol: smtp
-    host: smtp.dreamhost.com
+    host: smtp.gmail.com
     port: 465
-    username: mailing@geolinksas.com
-    password: L3aA?ky6
+    username: sistema.transicion@gmail.com
+    password: G^AZf\O1E5
+    defaultEncoding: UTF-8
     properties:
       mail:
         smtp:
+          allow8bitmime: true
           from: mailing@geolinksas.com
           auth: true
           ssl:
