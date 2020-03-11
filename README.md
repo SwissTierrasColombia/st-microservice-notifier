@@ -1,6 +1,6 @@
-# Microservice Filemanager
+# Microservice Notifier
 
-Microservice that allows document management.
+Microservice that allows the sending of notifications by email.
 
 ## Running Development
 
@@ -12,7 +12,7 @@ $ mvn spring-boot:run
 
 ### How to disable eureka client?
 
-Modify the **enabled** property in st-microservice-filemanager/src/main/resources/**application.yml** file:
+Modify the **enabled** property in st-microservice-notifier/src/main/resources/**application.yml** file:
 
 ```yml
 eureka:
@@ -22,12 +22,12 @@ eureka:
 
 ### How to disable config client?
 
-Modify the **enabled** property in st-microservice-filemanager/src/main/resources/**bootstrap.yml** file:
+Modify the **enabled** property in st-microservice-notifier/src/main/resources/**bootstrap.yml** file:
 
 ```yml
 spring:
   application:
-    name: st-microservice-filemanager
+    name: st-microservice-notifier
   cloud:
     config:
       enabled: false
@@ -62,15 +62,15 @@ $ docker network create st
 ### Create image from Dockerfile
 
 ```sh
-$ docker build -t st-microservice-filemanager:ursus .
+$ docker build -t st-microservice-notifier:ursus .
 ```
 
 ### Run Container
 
 ```sh
-$ docker run -P -t --network st -d -v /opt/file-manager/files:/opt/file-manager/files  st-microservice-filemanager:ursus
+$ docker run -P -t --network st -d -v /opt/file-manager/files:/opt/file-manager/files  st-microservice-notifier:ursus
 ```
 
 ## License
 
-[Agencia de Implementación - BSF Swissphoto - INCIGE](https://github.com/AgenciaImplementacion/st-microservice-filemanager/blob/master/LICENSE)
+[Agencia de Implementación - BSF Swissphoto - INCIGE](https://github.com/AgenciaImplementacion/st-microservice-notifier/blob/master/LICENSE)
