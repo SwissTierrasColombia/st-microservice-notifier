@@ -1,0 +1,62 @@
+spring:
+  application:
+    name: st-microservice-notifier
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+  datasource:
+    url: jdbc:postgresql://localhost:54321/sistema-transicion
+    username: postgres
+    password: 123456
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
+    hibernate.ddl-auto: create
+  mail:
+    protocol: smtp
+    host: smtp.gmail.com
+    port: 465
+    username: sistema.transicion@gmail.com
+    password: G^AZf\O1E5
+    defaultEncoding: UTF-8
+    properties:
+      mail:
+        smtp:
+          allow8bitmime: true
+          from: mailing@geolinksas.com
+          auth: true
+          ssl:
+            enable: true
+
+  main:
+    allow-bean-definition-overriding: true
+
+server:
+  port: 8899
+  max-http-header-size: 10000000 
+  
+eureka:
+  client:
+    enabled: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+  
+  
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: debug
+
+endpoint: notifier
+
+st:
+  rabbitmq:
+    queueNotifications:
+      exchange: st.exchange.notifications
+      queue: st.queue.notifications
+      routingkey: st.routingkey.notifications
+      concurrency: 4
+     
