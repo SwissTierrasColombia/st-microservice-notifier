@@ -10,6 +10,22 @@ $ mvn spring-boot:run
 
 ## Configuration 
 
+### Database connection
+
+You must create a database in PostgreSQL with a **scheme** called "**notifications**" and then configure the connection data in the st-microservice-notifier/src/main/resources/**application.yml** file
+
+```yml
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/sistema-transicion
+    username: postgres
+    password: 123456
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
+    hibernate.ddl-auto: create
+```
+
 ### How to disable eureka client?
 
 Modify the **enabled** property in st-microservice-notifier/src/main/resources/**application.yml** file:
@@ -68,7 +84,7 @@ $ docker build -t st-microservice-notifier:ursus .
 ### Run Container
 
 ```sh
-$ docker run -P -t --network st -d -v /opt/file-manager/files:/opt/file-manager/files  st-microservice-notifier:ursus
+$ docker run -P -t --network st -d st-microservice-notifier:ursus
 ```
 
 ## License
