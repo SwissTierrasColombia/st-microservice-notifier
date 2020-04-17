@@ -120,7 +120,7 @@ public class NotificationAssignmentOperationMunicipalityDto implements Serializa
 		html += "<div>El Sistema De Transición para el Barrido Predial en Colombia le informa:</div>";
 		html += "<div>Que el GESTOR CATASTRAL "+this.manager+" le ha asignado/modificado la OPERACIÓN CATASTRAL del municipio de "+this.mpio+" del departamento de "+this.dpto+" A partir del "+this.requestDateFrom.toString()+" Y hasta el "+this.requestDateTo.toString()+" de acuerdo con el documento soporte “"+this.supportFile+"”.</div>";
 		html += "<div>Para mayor detalle por favor diríjase al Sistema de Transición en la siguiente URL e ingrese con su respectivo usuario y contraseña que le ha sido asignada previamente.</div>";
-		html += "<div><a href='https://st.proadmintierra.info/login'>https://st.proadmintierra.info/login</a></div>";
+		html += "<div><a href='https://st-pruebas.proadmintierra.info/login'>https://st-pruebas.proadmintierra.info/login</a></div>";
 		html += "<div>Nota: Cualquier inquietud o inconveniente en el ingreso a la plataforma por favor comunicarse con el siguiente correo: soporte_ST@proadmintierra.info</div>";
 		html += "<div>--</div>";
 		html += "SISTEMA DE TRANSICIÓN</div>";

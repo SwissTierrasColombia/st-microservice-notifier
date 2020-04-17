@@ -117,7 +117,7 @@ public class NotificationLoadOfInputsDto implements Serializable {
 				+ this.dpto + " con el número de solicitud " + this.requestNumber + " cargado el "
 				+ this.loadDate.toString() + ", " + msgStatus + "</div>";
 		html += "<div>Para mayor detalle por favor diríjase al Sistema de Transición en la siguiente URL e ingrese con su respectivo usuario y contraseña que le ha sido asignada previamente.</div>";
-		html += "<div><a href='https://st.proadmintierra.info/login'>https://st.proadmintierra.info/login</a></div>";
+		html += "<div><a href='https://st-pruebas.proadmintierra.info/login'>https://st-pruebas.proadmintierra.info/login</a></div>";
 		html += "<div>Nota: Cualquier inquietud o inconveniente en el ingreso a la plataforma por favor comunicarse con el siguiente correo: soporte_ST@proadmintierra.info</div>";
 		html += "<div>--</div>";
 		html += "SISTEMA DE TRANSICIÓN</div>";

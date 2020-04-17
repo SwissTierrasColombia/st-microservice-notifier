@@ -105,7 +105,7 @@ public class NotificationDeliveryOfInputsDto implements Serializable {
 				+ this.mpio + " del departamento de " + this.dpto
 				+ " de acuerdo con lo definido en el documento soporte “" + this.supportFile + "”.</div>";
 		html += "<div>Para mayor detalle por favor diríjase al Sistema de Transición en la siguiente URL e ingrese con su respectivo usuario y contraseña que le ha sido asignada previamente o si es el caso desarróllela directamente en el Asistente LADM_COL del programa QGIS utilizando las mismas credenciales.</div>";
-		html += "<div><a href='https://st.proadmintierra.info/login'>https://st.proadmintierra.info/login</a></div>";
+		html += "<div><a href='https://st-pruebas.proadmintierra.info/login'>https://st-pruebas.proadmintierra.info/login</a></div>";
 		html += "<div>Nota: Cualquier inquietud o inconveniente en el ingreso a la plataforma por favor comunicarse con el siguiente correo: soporte_ST@proadmintierra.info</div>";
 		html += "<div>--</div>";
 		html += "SISTEMA DE TRANSICIÓN</div>";
