@@ -1,6 +1,7 @@
 package com.ai.st.microservice.notifier.dto;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class NotificationAssignmentOperationMunicipalityDto implements Serializable {
@@ -86,7 +87,7 @@ public class NotificationAssignmentOperationMunicipalityDto implements Serializa
 	public void setRequestNumber(String requestNumber) {
 		this.requestNumber = requestNumber;
 	}
-	
+
 	public Date getRequestDateFrom() {
 		return requestDateFrom;
 	}
@@ -116,13 +117,17 @@ public class NotificationAssignmentOperationMunicipalityDto implements Serializa
 	}
 
 	public String getBody() {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		String html = "";
-		html += "<div>El Sistema De Transición para el Barrido Predial en Colombia le informa:</div>";
-		html += "<div>Que el GESTOR CATASTRAL "+this.manager+" le ha asignado/modificado la OPERACIÓN CATASTRAL del municipio de "+this.mpio+" del departamento de "+this.dpto+" A partir del "+this.requestDateFrom.toString()+" Y hasta el "+this.requestDateTo.toString()+" de acuerdo con el documento soporte “"+this.supportFile+"”.</div>";
+		html += "<div>El Sistema de Transición para el Barrido Predial en Colombia le informa:</div><br>";
+		html += "<div>Que el GESTOR CATASTRAL " + this.manager
+				+ " le ha asignado/modificado la OPERACIÓN CATASTRAL del municipio de " + this.mpio
+				+ " del departamento de " + this.dpto + " A partir del " + formatter.format(this.requestDateFrom)
+				+ " Y hasta el " + formatter.format(this.requestDateTo) + " de acuerdo con el documento soporte que se encuentra en el sistema.</div><br>";
 		html += "<div>Para mayor detalle por favor diríjase al Sistema de Transición en la siguiente URL e ingrese con su respectivo usuario y contraseña que le ha sido asignada previamente.</div>";
-		html += "<div><a href='https://st-pruebas.proadmintierra.info/login'>https://st-pruebas.proadmintierra.info/login</a></div>";
+		html += "<div><a href='https://st-pruebas.proadmintierra.info/login'>https://st-pruebas.proadmintierra.info/login</a></div><br>";
 		html += "<div>Nota: Cualquier inquietud o inconveniente en el ingreso a la plataforma por favor comunicarse con el siguiente correo: soporte_ST@proadmintierra.info</div>";
-		html += "<div>--</div>";
+		html += "<br><div>--</div>";
 		html += "SISTEMA DE TRANSICIÓN</div>";
 		return html;
 

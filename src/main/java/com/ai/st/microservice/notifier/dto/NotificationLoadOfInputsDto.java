@@ -1,6 +1,7 @@
 package com.ai.st.microservice.notifier.dto;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class NotificationLoadOfInputsDto implements Serializable {
@@ -107,19 +108,20 @@ public class NotificationLoadOfInputsDto implements Serializable {
 	}
 
 	public String getBody() {
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 		String msgStatus = "ha sido validado y cargado SATISFACTORIAMENTE.";
 		if (!this.loadStatus) {
 			msgStatus = "ha sido validado y ha FALLADO en su carga, por lo cual se solicita volver a subirlo al sistema.";
 		}
 		String html = "";
-		html += "<div>El Sistema De Transición para el Barrido Predial en Colombia le informa:</div>";
+		html += "<div>El Sistema de Transición para el Barrido Predial en Colombia le informa:</div><br>";
 		html += "<div>Que el insumo “" + this.supportFile + "” del municipio de " + this.mpio + " del departamento de "
-				+ this.dpto + " con el número de solicitud " + this.requestNumber + " cargado el "
-				+ this.loadDate.toString() + ", " + msgStatus + "</div>";
+				+ this.dpto + " con el número de SOLICITUD <b>" + this.requestNumber + "</b> cargado el "
+				+ formatter.format(this.loadDate) + ", " + msgStatus + "</div><br>";
 		html += "<div>Para mayor detalle por favor diríjase al Sistema de Transición en la siguiente URL e ingrese con su respectivo usuario y contraseña que le ha sido asignada previamente.</div>";
-		html += "<div><a href='https://st-pruebas.proadmintierra.info/login'>https://st-pruebas.proadmintierra.info/login</a></div>";
+		html += "<div><a href='https://st-pruebas.proadmintierra.info/login'>https://st-pruebas.proadmintierra.info/login</a></div><br>";
 		html += "<div>Nota: Cualquier inquietud o inconveniente en el ingreso a la plataforma por favor comunicarse con el siguiente correo: soporte_ST@proadmintierra.info</div>";
-		html += "<div>--</div>";
+		html += "<br><div>--</div>";
 		html += "SISTEMA DE TRANSICIÓN</div>";
 		return html;
 

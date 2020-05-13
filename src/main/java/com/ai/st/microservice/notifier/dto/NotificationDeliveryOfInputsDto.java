@@ -99,15 +99,15 @@ public class NotificationDeliveryOfInputsDto implements Serializable {
 
 	public String getBody() {
 		String html = "";
-		html += "<div>El Sistema De Transición para el Barrido Predial en Colombia le informa:</div>";
+		html += "<div>El Sistema de Transición para el Barrido Predial en Colombia le informa:</div><br>";
 		html += "<div>Que el " + this.requestDate.toString() + " el GESTOR CATASTRAL " + this.manager
 				+ " le ha dispuesto los INSUMOS NECESARIOS para el desarrollo de las actividades asignadas en el municipio de "
 				+ this.mpio + " del departamento de " + this.dpto
-				+ " de acuerdo con lo definido en el documento soporte “" + this.supportFile + "”.</div>";
+				+ " de acuerdo con lo definido en la asignación para este municipio.</div><br>";
 		html += "<div>Para mayor detalle por favor diríjase al Sistema de Transición en la siguiente URL e ingrese con su respectivo usuario y contraseña que le ha sido asignada previamente o si es el caso desarróllela directamente en el Asistente LADM_COL del programa QGIS utilizando las mismas credenciales.</div>";
-		html += "<div><a href='https://st-pruebas.proadmintierra.info/login'>https://st-pruebas.proadmintierra.info/login</a></div>";
+		html += "<div><a href='https://st-pruebas.proadmintierra.info/login'>https://st-pruebas.proadmintierra.info/login</a></div><br>";
 		html += "<div>Nota: Cualquier inquietud o inconveniente en el ingreso a la plataforma por favor comunicarse con el siguiente correo: soporte_ST@proadmintierra.info</div>";
-		html += "<div>--</div>";
+		html += "<br><div>--</div>";
 		html += "SISTEMA DE TRANSICIÓN</div>";
 		return html;
 	}

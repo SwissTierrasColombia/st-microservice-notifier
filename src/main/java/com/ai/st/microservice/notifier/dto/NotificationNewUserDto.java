@@ -82,15 +82,15 @@ public class NotificationNewUserDto implements Serializable {
 
 	public String getBody() {
 		String html = "";
-		html += "<div>El Sistema De Transición para el Barrido Predial en Colombia le informa:</div>";
+		html += "<div>El Sistema de Transición para el Barrido Predial en Colombia le informa:</div><br>";
 		html += "<div>Se ha creado/modificado un usuario asignado a usted para que ingrese en el sistema y consulte las actividades/tareas que se le han asignado.</div>";
-		html += "<div>Ingrese a la siguiente URL: <a href='https://st-pruebas.proadmintierra.info/login'>https://st-pruebas.proadmintierra.info/login</a></div>";
+		html += "<div>Ingrese a la siguiente URL: <a href='https://st-pruebas.proadmintierra.info/login'>https://st-pruebas.proadmintierra.info/login</a></div><br>";
 		html += "<div>Sus credenciales son las siguientes:</div>";
 		html += "<div>USUARIO: " + this.user + "</div>";
 		html += "<div>ENTIDAD: " + this.profile + "</div>";
-		html += "<div>CONTRASEÑA: " + this.password + "</div>";
+		html += "<div>CONTRASEÑA: " + this.password + "</div><br>";
 		html += "<div>Nota Importante: Se solicita al usuario cambiar la contraseña una vez se ingrese por primera vez al sistema.</div>";
-		html += "<div>--</div>";
+		html += "<br><div>--</div>";
 		html += "SISTEMA DE TRANSICIÓN</div>";
 		return html;
 
