@@ -16,9 +16,27 @@ public class NotificationInputIntegrationsDto implements Serializable {
 	private String mpio;
 	private String dpto;
 	private Date integrationDate;
+	private String siteURL;
+	private String siteEmail;
 
 	public NotificationInputIntegrationsDto() {
 
+	}
+
+	public String getSiteURL() {
+		return siteURL;
+	}
+
+	public void setSiteURL(String siteURL) {
+		this.siteURL = siteURL;
+	}
+
+	public String getSiteEmail() {
+		return siteEmail;
+	}
+
+	public void setSiteEmail(String siteEmail) {
+		this.siteEmail = siteEmail;
 	}
 
 	public Long getUserCode() {
@@ -97,8 +115,9 @@ public class NotificationInputIntegrationsDto implements Serializable {
 				+ this.dpto + " solicitada el " + formatter.format(this.integrationDate) + ", se encuentra en estado "
 				+ this.integrationStatus + ".</div><br>";
 		html += "<div>Para mayor detalle por favor diríjase al Sistema de Transición en la siguiente URL e ingrese con su respectivo usuario y contraseña que le ha sido asignada previamente.</div>";
-		html += "<div><a href='https://st-pruebas.proadmintierra.info/login'>https://st-pruebas.proadmintierra.info/login</a></div><br>";
-		html += "<div>Nota: Cualquier inquietud o inconveniente en el ingreso a la plataforma por favor comunicarse con el siguiente correo: soporte_ST@proadmintierra.info</div>";
+		html += "<div><a href='" + siteURL + "'>" + siteURL + "</a></div><br>";
+		html += "<div>Nota: Cualquier inquietud o inconveniente en el ingreso a la plataforma por favor comunicarse con el siguiente correo: "
+				+ siteEmail + "</div>";
 		html += "<br><div>--</div>";
 		html += "SISTEMA DE TRANSICIÓN</div>";
 		return html;

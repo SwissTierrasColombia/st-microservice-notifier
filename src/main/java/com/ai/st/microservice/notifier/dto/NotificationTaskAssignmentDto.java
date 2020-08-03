@@ -16,6 +16,8 @@ public class NotificationTaskAssignmentDto implements Serializable {
 	private String mpio;
 	private String dpto;
 	private Date taskDate;
+	private String siteURL;
+	private String siteEmail;
 
 	public NotificationTaskAssignmentDto() {
 
@@ -85,6 +87,22 @@ public class NotificationTaskAssignmentDto implements Serializable {
 		this.taskDate = taskDate;
 	}
 
+	public String getSiteURL() {
+		return siteURL;
+	}
+
+	public void setSiteURL(String siteURL) {
+		this.siteURL = siteURL;
+	}
+
+	public String getSiteEmail() {
+		return siteEmail;
+	}
+
+	public void setSiteEmail(String siteEmail) {
+		this.siteEmail = siteEmail;
+	}
+
 	public String getSubject() {
 		return "Notificación Sistema de Transición Barrido Predial – Asignación de Tarea " + this.task;
 	}
@@ -96,8 +114,9 @@ public class NotificationTaskAssignmentDto implements Serializable {
 		html += "<div>Que el " + formatter.format(this.taskDate) + " se le ha asignado la tarea " + this.task
 				+ " del municipio de " + this.mpio + " del departamento de " + this.dpto + ".</div><br>";
 		html += "<div>Para mayor detalle por favor diríjase al Sistema de Transición en la siguiente URL e ingrese con su respectivo usuario y contraseña que le ha sido asignada previamente o si es el caso desarróllela directamente en el Asistente LADM_COL del programa QGIS utilizando las mismas credenciales.</div>";
-		html += "<div><a href='https://st-pruebas.proadmintierra.info/login'>https://st-pruebas.proadmintierra.info/login</a></div><br>";
-		html += "<div>Nota: Cualquier inquietud o inconveniente en el ingreso a la plataforma por favor comunicarse con el siguiente correo: soporte_ST@proadmintierra.info</div>";
+		html += "<div><a href='" + siteURL + "'>" + siteURL + "</a></div><br>";
+		html += "<div>Nota: Cualquier inquietud o inconveniente en el ingreso a la plataforma por favor comunicarse con el siguiente correo: "
+				+ siteEmail + "</div>";
 		html += "<br><div>--</div>";
 		html += "SISTEMA DE TRANSICIÓN</div>";
 		return html;

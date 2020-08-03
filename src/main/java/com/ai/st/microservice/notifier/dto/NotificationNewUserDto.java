@@ -6,6 +6,7 @@ import java.nio.charset.*;
 public class NotificationNewUserDto implements Serializable {
 
 	private static final long serialVersionUID = 3050930525504636650L;
+	
 
 	private Long userCode;
 	private String email;
@@ -14,6 +15,8 @@ public class NotificationNewUserDto implements Serializable {
 	private String user;
 	private String password;
 	private String profile;
+	private String siteURL;
+	private String siteEmail;
 
 	public NotificationNewUserDto() {
 
@@ -75,8 +78,26 @@ public class NotificationNewUserDto implements Serializable {
 		this.profile = profile;
 	}
 
+	public String getSiteURL() {
+		return siteURL;
+	}
+
+	public void setSiteURL(String siteURL) {
+		this.siteURL = siteURL;
+	}
+
+	public String getSiteEmail() {
+		return siteEmail;
+	}
+
+	public void setSiteEmail(String siteEmail) {
+		this.siteEmail = siteEmail;
+	}
+
 	public String getSubject() {
-		String value = new String("Notificación Sistema de Transición Barrido Predial – Creación/modificación de Usuario".getBytes(), Charset.forName("UTF-8")); 
+		String value = new String(
+				"Notificación Sistema de Transición Barrido Predial – Creación/modificación de Usuario".getBytes(),
+				Charset.forName("UTF-8"));
 		return value;
 	}
 
@@ -84,7 +105,7 @@ public class NotificationNewUserDto implements Serializable {
 		String html = "";
 		html += "<div>El Sistema de Transición para el Barrido Predial en Colombia le informa:</div><br>";
 		html += "<div>Se ha creado/modificado un usuario asignado a usted para que ingrese en el sistema y consulte las actividades/tareas que se le han asignado.</div>";
-		html += "<div>Ingrese a la siguiente URL: <a href='https://st-pruebas.proadmintierra.info/login'>https://st-pruebas.proadmintierra.info/login</a></div><br>";
+		html += "<div>Ingrese a la siguiente URL: <a href='" + this.siteURL + "'>" + siteURL + "</a></div><br>";
 		html += "<div>Sus credenciales son las siguientes:</div>";
 		html += "<div>USUARIO: " + this.user + "</div>";
 		html += "<div>ENTIDAD: " + this.profile + "</div>";

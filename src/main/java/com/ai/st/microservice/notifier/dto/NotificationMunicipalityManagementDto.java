@@ -16,6 +16,8 @@ public class NotificationMunicipalityManagementDto implements Serializable {
 	private String dpto;
 	private Date startDate;
 	private String supportFile;
+	private String siteURL;
+	private String siteEmail;
 
 	public NotificationMunicipalityManagementDto() {
 
@@ -85,6 +87,22 @@ public class NotificationMunicipalityManagementDto implements Serializable {
 		this.supportFile = supportFile;
 	}
 
+	public String getSiteURL() {
+		return siteURL;
+	}
+
+	public void setSiteURL(String siteURL) {
+		this.siteURL = siteURL;
+	}
+
+	public String getSiteEmail() {
+		return siteEmail;
+	}
+
+	public void setSiteEmail(String siteEmail) {
+		this.siteEmail = siteEmail;
+	}
+
 	public String getSubject() {
 		return "Notificación Sistema de Transición Barrido Predial – Asignación Gestión Municipio";
 	}
@@ -97,8 +115,9 @@ public class NotificationMunicipalityManagementDto implements Serializable {
 				+ " del departamento de " + this.dpto + " A partir del " + formatter.format(this.startDate)
 				+ " de acuerdo con el documento soporte que se encuentra en el sistema.</div><br>";
 		html += "<div>Para mayor detalle por favor diríjase al Sistema de Transición en la siguiente URL e ingrese con su respectivo usuario y contraseña que le ha sido asignada previamente.</div>";
-		html += "<div><a href='https://st-pruebas.proadmintierra.info/login'>https://st-pruebas.proadmintierra.info/login</a></div><br>";
-		html += "<div>Nota: Cualquier inquietud o inconveniente en el ingreso a la plataforma por favor comunicarse con el siguiente correo: soporte_ST@proadmintierra.info</div>";
+		html += "<div><a href='" + siteURL + "'>" + siteURL + "</a></div><br>";
+		html += "<div>Nota: Cualquier inquietud o inconveniente en el ingreso a la plataforma por favor comunicarse con el siguiente correo: "
+				+ siteEmail + "</div>";
 		html += "<br><div>--</div>";
 		html += "SISTEMA DE TRANSICIÓN</div>";
 		return html;
