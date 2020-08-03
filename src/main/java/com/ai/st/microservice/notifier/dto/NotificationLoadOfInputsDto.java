@@ -18,6 +18,8 @@ public class NotificationLoadOfInputsDto implements Serializable {
 	private String requestNumber;
 	private Date loadDate;
 	private String supportFile;
+	private String siteURL;
+	private String siteEmail;
 
 	public NotificationLoadOfInputsDto() {
 
@@ -103,6 +105,22 @@ public class NotificationLoadOfInputsDto implements Serializable {
 		this.loadDate = loadDate;
 	}
 
+	public String getSiteURL() {
+		return siteURL;
+	}
+
+	public void setSiteURL(String siteURL) {
+		this.siteURL = siteURL;
+	}
+
+	public String getSiteEmail() {
+		return siteEmail;
+	}
+
+	public void setSiteEmail(String siteEmail) {
+		this.siteEmail = siteEmail;
+	}
+
 	public String getSubject() {
 		return "Notificación Sistema de Transición Barrido Predial – Cargue de Insumo XTF";
 	}
@@ -119,8 +137,9 @@ public class NotificationLoadOfInputsDto implements Serializable {
 				+ this.dpto + " con el número de SOLICITUD <b>" + this.requestNumber + "</b> cargado el "
 				+ formatter.format(this.loadDate) + ", " + msgStatus + "</div><br>";
 		html += "<div>Para mayor detalle por favor diríjase al Sistema de Transición en la siguiente URL e ingrese con su respectivo usuario y contraseña que le ha sido asignada previamente.</div>";
-		html += "<div><a href='https://st-pruebas.proadmintierra.info/login'>https://st-pruebas.proadmintierra.info/login</a></div><br>";
-		html += "<div>Nota: Cualquier inquietud o inconveniente en el ingreso a la plataforma por favor comunicarse con el siguiente correo: soporte_ST@proadmintierra.info</div>";
+		html += "<div><a href='" + siteURL + "'>" + siteURL + "</a></div><br>";
+		html += "<div>Nota: Cualquier inquietud o inconveniente en el ingreso a la plataforma por favor comunicarse con el siguiente correo: "
+				+ siteEmail + "</div>";
 		html += "<br><div>--</div>";
 		html += "SISTEMA DE TRANSICIÓN</div>";
 		return html;
