@@ -9,6 +9,7 @@ import javax.mail.internet.MimeMessage;
 
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
@@ -22,6 +23,9 @@ public class RabbitMQNotificationListener {
 
 	// private final static Logger log =
 	// Logger.getLogger(RabbitMQNotificationListener.class.getName());
+	
+	@Value("${st.site.email}")
+	public String siteEmail;
 
 	@Autowired
 	private INotificationService notificationService;
@@ -54,6 +58,7 @@ public class RabbitMQNotificationListener {
 			helper.setTo(message.getEmail());
 			helper.setSubject(message.getSubject());
 			helper.setText(message.getMessage(), true);
+			helper.setFrom(siteEmail);
 			javaMailSender.send(msg);
 		} catch (MessagingException e) {
 			System.out.println(e.getMessage());
