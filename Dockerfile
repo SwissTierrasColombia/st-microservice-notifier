@@ -10,7 +10,7 @@ ENV CLOUD_CONFIG=$CLOUD_CONFIG
 
 VOLUME /tmp
 
-ADD ./target/st-microservice-notifier-0.0.1-SNAPSHOT.jar st-microservice-notifier.jar
+ADD ./target/st-microservice-notifier-1.0.0.jar st-microservice-notifier.jar
 
 EXPOSE 8080
 
