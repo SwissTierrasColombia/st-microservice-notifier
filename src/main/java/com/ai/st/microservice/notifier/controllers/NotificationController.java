@@ -28,6 +28,7 @@ import com.ai.st.microservice.notifier.dto.NotificationIntegrationFileGeneration
 import com.ai.st.microservice.notifier.dto.NotificationLoadOfInputsDto;
 import com.ai.st.microservice.notifier.dto.NotificationMunicipalityManagementDto;
 import com.ai.st.microservice.notifier.dto.NotificationNewUserDto;
+import com.ai.st.microservice.notifier.dto.NotificationRecoverAccountDto;
 import com.ai.st.microservice.notifier.dto.NotificationTaskAssignmentDto;
 import com.ai.st.microservice.notifier.exceptions.NotificationException;
 
@@ -286,6 +287,26 @@ public class NotificationController {
 		notification.setSubject(requestCreateNotification.getSubject());
 		notification.setMessage(requestCreateNotification.getBody());
 		notification.setType(requestCreateNotification.getType());
+		return this.newNotification(notification);
+	}
+
+	/** Recuperar cuenta */
+	@RequestMapping(value = "/notify/recover-account", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "Create notification")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Email sent", response = NotificationDto.class),
+			@ApiResponse(code = 500, message = "Error Server", response = String.class) })
+	@ResponseBody
+	public ResponseEntity<Object> recoverAccount(@RequestBody NotificationRecoverAccountDto requestRecoverAccount) {
+
+		requestRecoverAccount.setSiteEmail(siteEmail);
+		requestRecoverAccount.setSiteURL(siteURL);
+
+		NotificationDto notification = new NotificationDto();
+		notification.setUserCode(requestRecoverAccount.getUserCode());
+		notification.setEmail(requestRecoverAccount.getEmail());
+		notification.setSubject(requestRecoverAccount.getSubject());
+		notification.setMessage(requestRecoverAccount.getBody());
+		notification.setType(requestRecoverAccount.getType());
 		return this.newNotification(notification);
 	}
 
