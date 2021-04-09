@@ -61,8 +61,8 @@ public class NotificationController {
 	public ResponseEntity<Object> notificationsList(@PathVariable(name = "userCode", required = true) Long userCode,
 			@PathVariable(name = "status", required = true) int status) {
 
-		HttpStatus httpStatus = null;
-		Object responseDto = null;
+		HttpStatus httpStatus;
+		Object responseDto;
 
 		try {
 			responseDto = notificationBusiness.getNotifications(userCode, status);
@@ -85,8 +85,8 @@ public class NotificationController {
 	@ResponseBody
 	public ResponseEntity<Object> notificationsChangeStatus(@RequestBody NotificationChangeStatusDto req) {
 
-		HttpStatus httpStatus = null;
-		Object responseDto = null;
+		HttpStatus httpStatus;
+		Object responseDto;
 
 		try {
 			responseDto = notificationBusiness.changeNotificationStatus(req.getNotificationId(), req.getStatus());
@@ -311,8 +311,8 @@ public class NotificationController {
 	}
 
 	public ResponseEntity<Object> newNotification(NotificationDto notification) {
-		HttpStatus httpStatus = null;
-		Object responseDto = null;
+		HttpStatus httpStatus;
+		Object responseDto;
 		try {
 			responseDto = notificationBusiness.createNotification(notification.getUserCode(), notification.getEmail(),
 					notification.getSubject(), notification.getMessage(), notification.getType());

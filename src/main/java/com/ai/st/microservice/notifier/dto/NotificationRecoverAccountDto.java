@@ -4,103 +4,114 @@ import java.io.Serializable;
 
 public class NotificationRecoverAccountDto implements Serializable {
 
-	private static final long serialVersionUID = -3073283184260792970L;
+    private static final long serialVersionUID = -3073283184260792970L;
 
-	private Long userCode;
-	private String email;
-	private String type;
-	private int status;
+    private Long userCode;
+    private String email;
+    private String type;
+    private int status;
 
-	private String code;
-	private String expirationDate;
+    private String code;
+    private String expirationDate;
+    private String username;
 
-	private String siteURL;
-	private String siteEmail;
+    private String siteURL;
+    private String siteEmail;
 
-	public NotificationRecoverAccountDto() {
+    public Long getUserCode() {
+        return userCode;
+    }
 
-	}
+    public void setUserCode(Long userCode) {
+        this.userCode = userCode;
+    }
 
-	public Long getUserCode() {
-		return userCode;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setUserCode(Long userCode) {
-		this.userCode = userCode;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getType() {
+        return type;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public String getType() {
-		return type;
-	}
+    public int getStatus() {
+        return status;
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
-	public int getStatus() {
-		return status;
-	}
+    public String getSiteURL() {
+        return siteURL;
+    }
 
-	public void setStatus(int status) {
-		this.status = status;
-	}
+    public void setSiteURL(String siteURL) {
+        this.siteURL = siteURL;
+    }
 
-	public String getSiteURL() {
-		return siteURL;
-	}
+    public String getSiteEmail() {
+        return siteEmail;
+    }
 
-	public void setSiteURL(String siteURL) {
-		this.siteURL = siteURL;
-	}
+    public void setSiteEmail(String siteEmail) {
+        this.siteEmail = siteEmail;
+    }
 
-	public String getSiteEmail() {
-		return siteEmail;
-	}
+    public String getCode() {
+        return code;
+    }
 
-	public void setSiteEmail(String siteEmail) {
-		this.siteEmail = siteEmail;
-	}
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-	public String getCode() {
-		return code;
-	}
+    public String getExpirationDate() {
+        return expirationDate;
+    }
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+    public void setExpirationDate(String expirationDate) {
+        this.expirationDate = expirationDate;
+    }
 
-	public String getExpirationDate() {
-		return expirationDate;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public void setExpirationDate(String expirationDate) {
-		this.expirationDate = expirationDate;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public String getSubject() {
-		return "Notificación Sistema de Transición Barrido Predial – Recuperar Cuenta";
-	}
+    public String getSubject() {
+        return "Notificación Sistema de Transición Barrido Predial – Recuperar Cuenta";
+    }
 
-	public String getBody() {
-		String html = "";
-		html += "<div>El Sistema de Transición para el Barrido Predial en Colombia le informa:</div><br>";
-		html += "<div>Que se ha generado un código único <b>" + code
-				+ "</b> para que pueda recupera su cuenta, el cual deberá ingresar junto con su nueva contraseña y el cual expirará "
-				+ this.expirationDate + " </div><br>";
+    public String getBody() {
+        String html = "";
+        html += "<div>El Sistema de Transición para el Barrido Predial en Colombia le informa:</div><br>";
 
-		html += "<div>Nota: Cualquier inquietud o inconveniente en el ingreso a la plataforma por favor comunicarse con el siguiente correo: "
-				+ siteEmail + "</div>";
-		html += "<br><div>--</div>";
-		html += "SISTEMA DE TRANSICIÓN</div>";
-		return html;
-	}
+        html += "<div>Que se realizó una solicitud de recuperación de usuario y/o contraseña para el siguiente usuario:</div><br />";
+
+        html += "<div><b>Usuario:</b>" + this.username + "</div>";
+        html += "<div><b>Token:</b>" + this.code + "</div>";
+        html += "<div><b>Fecha expiración:</b>" + this.expirationDate + "</div><br />";
+
+        html += "<div>En la interfaz de recuperación de contraseña del Sistema, por favor introduzca el nombre de usuario y Token para restablecer la contraseña e ingresar.</div><br />";
+        html += "<div>En caso de solo haber olvidado el usuario, ingrese normalmente sin utilizar el Token en la página de autenticación del Sistema.</div><br />";
+
+        html += "<div>Nota: Cualquier inquietud o inconveniente en el ingreso a la plataforma por favor comunicarse con el siguiente correo: "
+                + siteEmail + "</div>";
+        html += "<br><div>--</div>";
+        html += "SISTEMA DE TRANSICIÓN</div>";
+        return html;
+    }
 
 }
