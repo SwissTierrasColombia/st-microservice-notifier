@@ -101,7 +101,7 @@ public class NotificationRecoverAccountDto implements Serializable {
         html += "<div>Que se realizó una solicitud de recuperación de usuario y/o contraseña para el siguiente usuario:</div><br />";
 
         html += "<div><b>Usuario:</b>" + this.username + "</div>";
-        html += "<div><b>Token:</b>" + this.code + "</div>";
+        html += "<div><b>Código de recuperación:</b>" + this.code + "</div>";
         html += "<div><b>Fecha expiración:</b>" + this.expirationDate + "</div><br />";
 
         html += "<div>En la interfaz de recuperación de contraseña del Sistema, por favor introduzca el nombre de usuario y Token para restablecer la contraseña e ingresar.</div><br />";
