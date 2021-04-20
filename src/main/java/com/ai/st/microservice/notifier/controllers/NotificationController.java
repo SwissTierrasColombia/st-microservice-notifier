@@ -28,6 +28,7 @@ import com.ai.st.microservice.notifier.dto.NotificationIntegrationFileGeneration
 import com.ai.st.microservice.notifier.dto.NotificationLoadOfInputsDto;
 import com.ai.st.microservice.notifier.dto.NotificationMunicipalityManagementDto;
 import com.ai.st.microservice.notifier.dto.NotificationNewUserDto;
+import com.ai.st.microservice.notifier.dto.NotificationRecoverAccountDto;
 import com.ai.st.microservice.notifier.dto.NotificationTaskAssignmentDto;
 import com.ai.st.microservice.notifier.exceptions.NotificationException;
 
@@ -60,8 +61,8 @@ public class NotificationController {
 	public ResponseEntity<Object> notificationsList(@PathVariable(name = "userCode", required = true) Long userCode,
 			@PathVariable(name = "status", required = true) int status) {
 
-		HttpStatus httpStatus = null;
-		Object responseDto = null;
+		HttpStatus httpStatus;
+		Object responseDto;
 
 		try {
 			responseDto = notificationBusiness.getNotifications(userCode, status);
@@ -84,8 +85,8 @@ public class NotificationController {
 	@ResponseBody
 	public ResponseEntity<Object> notificationsChangeStatus(@RequestBody NotificationChangeStatusDto req) {
 
-		HttpStatus httpStatus = null;
-		Object responseDto = null;
+		HttpStatus httpStatus;
+		Object responseDto;
 
 		try {
 			responseDto = notificationBusiness.changeNotificationStatus(req.getNotificationId(), req.getStatus());
@@ -289,9 +290,29 @@ public class NotificationController {
 		return this.newNotification(notification);
 	}
 
+	/** Recuperar cuenta */
+	@RequestMapping(value = "/notify/recover-account", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "Create notification")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Email sent", response = NotificationDto.class),
+			@ApiResponse(code = 500, message = "Error Server", response = String.class) })
+	@ResponseBody
+	public ResponseEntity<Object> recoverAccount(@RequestBody NotificationRecoverAccountDto requestRecoverAccount) {
+
+		requestRecoverAccount.setSiteEmail(siteEmail);
+		requestRecoverAccount.setSiteURL(siteURL);
+
+		NotificationDto notification = new NotificationDto();
+		notification.setUserCode(requestRecoverAccount.getUserCode());
+		notification.setEmail(requestRecoverAccount.getEmail());
+		notification.setSubject(requestRecoverAccount.getSubject());
+		notification.setMessage(requestRecoverAccount.getBody());
+		notification.setType(requestRecoverAccount.getType());
+		return this.newNotification(notification);
+	}
+
 	public ResponseEntity<Object> newNotification(NotificationDto notification) {
-		HttpStatus httpStatus = null;
-		Object responseDto = null;
+		HttpStatus httpStatus;
+		Object responseDto;
 		try {
 			responseDto = notificationBusiness.createNotification(notification.getUserCode(), notification.getEmail(),
 					notification.getSubject(), notification.getMessage(), notification.getType());

@@ -14,22 +14,6 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQL10Dialect
     hibernate.ddl-auto: create
-  mail:
-    protocol: smtp
-    host: smtp.gmail.com
-    port: 465
-    username: sistema.transicion@gmail.com
-    password: G^AZf\O1E5
-    defaultEncoding: UTF-8
-    properties:
-      mail:
-        smtp:
-          allow8bitmime: true
-          from: mailing@geolinksas.com
-          auth: true
-          ssl:
-            enable: true
-
   main:
     allow-bean-definition-overriding: true
 
@@ -51,12 +35,4 @@ logging:
         SQL: debug
 
 endpoint: notifier
-
-st:
-  rabbitmq:
-    queueNotifications:
-      exchange: st.exchange.notifications
-      queue: st.queue.notifications
-      routingkey: st.routingkey.notifications
-      concurrency: 4
      
