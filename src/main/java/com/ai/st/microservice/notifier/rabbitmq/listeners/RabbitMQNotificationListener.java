@@ -34,7 +34,7 @@ public class RabbitMQNotificationListener {
     private JavaMailSender javaMailSender;
 
 	@RabbitListener(queues = "${st.rabbitmq.queueNotifications.queue}")
-	public String recievedMessageFile(NotificationMessageDto message) {
+	public void recievedMessageFile(NotificationMessageDto message) {
 		
 		System.out.println(">>>>>>>>>>>>>>>>>> PROCESANDO MENSAJE <<<<<<<<<<<<<<<<<<<<<<");
 		
@@ -68,8 +68,6 @@ public class RabbitMQNotificationListener {
 		}
 		
 		notificationService.createNotification(notification);
-
-		return "";
 	}
 
 }

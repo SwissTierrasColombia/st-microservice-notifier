@@ -20,11 +20,9 @@ public class RabbitMQSenderService {
 	public String routingkeyFilesName;
 	
 
-	public String sendNotification(Long userCode, String email, String subject, String message, String type) {
-		String r = null;
-		NotificationDto omessage = new NotificationDto(userCode, email, subject, message, type);
-		r = (String) rabbitTemplate.convertSendAndReceive(exchangeFilesName, routingkeyFilesName, omessage);
-		return r;
+	public void sendNotification(Long userCode, String email, String subject, String message, String type) {
+		NotificationDto data = new NotificationDto(userCode, email, subject, message, type);
+		rabbitTemplate.convertAndSend(exchangeFilesName, routingkeyFilesName, data);
 	}
 
 }
