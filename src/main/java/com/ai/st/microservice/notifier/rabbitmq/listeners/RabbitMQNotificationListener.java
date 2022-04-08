@@ -5,8 +5,9 @@ import java.util.Date;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
-// import java.util.logging.Logger;
-
+import com.ai.st.microservice.notifier.services.tracing.SCMTracing;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,8 +22,7 @@ import com.ai.st.microservice.notifier.services.INotificationService;
 @Component
 public class RabbitMQNotificationListener {
 
-    // private final static Logger log =
-    // Logger.getLogger(RabbitMQNotificationListener.class.getName());
+    private final Logger log = LoggerFactory.getLogger(RabbitMQNotificationListener.class);
 
     @Value("${st.site.email}")
     public String siteEmail;
@@ -34,27 +34,32 @@ public class RabbitMQNotificationListener {
     private JavaMailSender javaMailSender;
 
     @RabbitListener(queues = "${st.rabbitmq.queueNotifications.queue}")
-    public void recievedMessageFile(NotificationMessageDto message) {
+    public void sendEmail(NotificationMessageDto notificationMessage) {
 
-        System.out.println(">>>>>>>>>>>>>>>>>> PROCESANDO MENSAJE <<<<<<<<<<<<<<<<<<<<<<");
+        log.info(String.format("Procesando mensaje de notificación: %s", notificationMessage.toString()));
 
-        NotificationEntity notification = new NotificationEntity(null, message.getUserCode(), message.getEmail(),
-                message.getSubject(), message.getMessage(), message.getType(), 1, new Date(), new Date());
+        NotificationEntity notification = new NotificationEntity(null, notificationMessage.getUserCode(),
+                notificationMessage.getEmail(), notificationMessage.getSubject(), notificationMessage.getMessage(),
+                notificationMessage.getType(), 1, new Date(), new Date());
 
         MimeMessage msg = javaMailSender.createMimeMessage();
         MimeMessageHelper helper;
         try {
             helper = new MimeMessageHelper(msg, true, "UTF-8");
-            helper.setTo(message.getEmail());
-            helper.setSubject(message.getSubject());
-            helper.setText(message.getMessage(), true);
+            helper.setTo(notificationMessage.getEmail());
+            helper.setSubject(notificationMessage.getSubject());
+            helper.setText(notificationMessage.getMessage(), true);
             helper.setFrom(siteEmail);
             javaMailSender.send(msg);
         } catch (MessagingException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
+            String messageError = String.format("Error enviando correo %s : %s", notificationMessage, e.getMessage());
+            SCMTracing.sendError(messageError);
+            log.error(messageError);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            String messageError = String.format("Error general enviando correo %s : %s", notificationMessage,
+                    e.getMessage());
+            SCMTracing.sendError(messageError);
+            log.error(messageError);
         }
 
         notificationService.createNotification(notification);

@@ -6,14 +6,14 @@ import com.ai.st.microservice.notifier.entities.NotificationEntity;
 
 public interface INotificationService {
 
-    public NotificationEntity createNotification(NotificationEntity requestEntity);
+    NotificationEntity createNotification(NotificationEntity requestEntity);
 
-    public List<NotificationEntity> getNotificationsByUserCodeAndStatus(Long userCode, int status);
+    List<NotificationEntity> getNotificationsByUserCodeAndStatus(Long userCode, int status);
 
-    public NotificationEntity getNotificationById(Long id);
+    NotificationEntity getNotificationById(Long id);
 
-    public NotificationEntity updateNotification(NotificationEntity requestEntity);
+    NotificationEntity updateNotification(NotificationEntity requestEntity);
 
-    public NotificationEntity updateNotificationStatus(Long notificationId, int status);
+    NotificationEntity updateNotificationStatus(Long notificationId, int status);
 
 }

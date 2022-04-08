@@ -64,4 +64,9 @@ public class NotificationMessageDto implements Serializable {
         this.subject = subject;
     }
 
+    @Override
+    public String toString() {
+        return "NotificationMessageDto{" + "userCode=" + userCode + ", email='" + email + '\'' + ", subject='" + subject
+                + '\'' + ", message='" + message + '\'' + ", type='" + type + '\'' + '}';
+    }
 }
