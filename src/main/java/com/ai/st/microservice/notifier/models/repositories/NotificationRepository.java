@@ -1,4 +1,4 @@
-package com.ai.st.microservice.notifier.repositories;
+package com.ai.st.microservice.notifier.models.repositories;
 
 import java.util.List;
 

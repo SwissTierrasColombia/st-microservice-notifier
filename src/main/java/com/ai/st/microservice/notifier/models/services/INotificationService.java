@@ -1,4 +1,4 @@
-package com.ai.st.microservice.notifier.services;
+package com.ai.st.microservice.notifier.models.services;
 
 import java.util.List;
 

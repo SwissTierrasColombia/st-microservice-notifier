@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 import com.ai.st.microservice.notifier.dto.NotificationDto;
 import com.ai.st.microservice.notifier.entities.NotificationEntity;
 import com.ai.st.microservice.notifier.exceptions.NotificationException;
-import com.ai.st.microservice.notifier.services.INotificationService;
-import com.ai.st.microservice.notifier.services.RabbitMQSenderService;
+import com.ai.st.microservice.notifier.models.services.INotificationService;
+import com.ai.st.microservice.notifier.services.rabbitmq.RabbitMQSenderService;
 
 @Component
 public class NotificationBusiness {

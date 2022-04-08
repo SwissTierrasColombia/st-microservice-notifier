@@ -1,4 +1,4 @@
-package com.ai.st.microservice.notifier.services;
+package com.ai.st.microservice.notifier.models.services;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ai.st.microservice.notifier.entities.NotificationEntity;
-import com.ai.st.microservice.notifier.repositories.NotificationRepository;
+import com.ai.st.microservice.notifier.models.repositories.NotificationRepository;
 
 @Service
 public class NotificationService implements INotificationService {

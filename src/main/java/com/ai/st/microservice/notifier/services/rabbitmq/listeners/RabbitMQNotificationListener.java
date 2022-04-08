@@ -1,4 +1,4 @@
-package com.ai.st.microservice.notifier.rabbitmq.listeners;
+package com.ai.st.microservice.notifier.services.rabbitmq.listeners;
 
 import java.util.Date;
 
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 
 import com.ai.st.microservice.notifier.dto.rabbitmq.NotificationMessageDto;
 import com.ai.st.microservice.notifier.entities.NotificationEntity;
-import com.ai.st.microservice.notifier.services.INotificationService;
+import com.ai.st.microservice.notifier.models.services.INotificationService;
 
 @Component
 public class RabbitMQNotificationListener {

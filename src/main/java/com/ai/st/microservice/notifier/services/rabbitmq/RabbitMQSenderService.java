@@ -1,4 +1,4 @@
-package com.ai.st.microservice.notifier.services;
+package com.ai.st.microservice.notifier.services.rabbitmq;
 
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
