@@ -114,4 +114,11 @@ public class NotificationIntegrationFileGenerationDto implements Serializable {
         return html;
     }
 
+    @Override
+    public String toString() {
+        return "NotificationIntegrationFileGenerationDto{" + "userCode=" + userCode + ", email='" + email + '\''
+                + ", type='" + type + '\'' + ", status=" + status + ", mpio='" + mpio + '\'' + ", dpto='" + dpto + '\''
+                + ", requestDate=" + requestDate + ", siteURL='" + siteURL + '\'' + ", siteEmail='" + siteEmail + '\''
+                + '}';
+    }
 }

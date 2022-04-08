@@ -143,7 +143,14 @@ public class NotificationLoadOfInputsDto implements Serializable {
         html += "<br><div>--</div>";
         html += "SISTEMA DE TRANSICIÓN</div>";
         return html;
-
     }
 
+    @Override
+    public String toString() {
+        return "NotificationLoadOfInputsDto{" + "userCode=" + userCode + ", email='" + email + '\'' + ", type='" + type
+                + '\'' + ", status=" + status + ", loadStatus=" + loadStatus + ", mpio='" + mpio + '\'' + ", dpto='"
+                + dpto + '\'' + ", requestNumber='" + requestNumber + '\'' + ", loadDate=" + loadDate
+                + ", supportFile='" + supportFile + '\'' + ", siteURL='" + siteURL + '\'' + ", siteEmail='" + siteEmail
+                + '\'' + '}';
+    }
 }

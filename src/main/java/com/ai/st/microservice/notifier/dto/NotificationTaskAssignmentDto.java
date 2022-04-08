@@ -122,4 +122,11 @@ public class NotificationTaskAssignmentDto implements Serializable {
         return html;
     }
 
+    @Override
+    public String toString() {
+        return "NotificationTaskAssignmentDto{" + "userCode=" + userCode + ", email='" + email + '\'' + ", type='"
+                + type + '\'' + ", status=" + status + ", task='" + task + '\'' + ", mpio='" + mpio + '\'' + ", dpto='"
+                + dpto + '\'' + ", taskDate=" + taskDate + ", siteURL='" + siteURL + '\'' + ", siteEmail='" + siteEmail
+                + '\'' + '}';
+    }
 }

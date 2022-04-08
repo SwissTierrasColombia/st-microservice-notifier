@@ -149,4 +149,11 @@ public class NotificationNewUserDto implements Serializable {
         return html;
     }
 
+    @Override
+    public String toString() {
+        return "NotificationNewUserDto{" + "userCode=" + userCode + ", email='" + email + '\'' + ", type='" + type
+                + '\'' + ", status=" + status + ", user='" + user + '\'' + ", password='" + password + '\''
+                + ", profile='" + profile + '\'' + ", siteURL='" + siteURL + '\'' + ", siteEmail='" + siteEmail + '\''
+                + '}';
+    }
 }

@@ -131,4 +131,11 @@ public class NotificationDeliveryOfInputsDto implements Serializable {
         return html;
     }
 
+    @Override
+    public String toString() {
+        return "NotificationDeliveryOfInputsDto{" + "userCode=" + userCode + ", email='" + email + '\'' + ", type='"
+                + type + '\'' + ", status=" + status + ", manager='" + manager + '\'' + ", mpio='" + mpio + '\''
+                + ", dpto='" + dpto + '\'' + ", supportFile='" + supportFile + '\'' + ", requestDate=" + requestDate
+                + ", siteURL='" + siteURL + '\'' + ", siteEmail='" + siteEmail + '\'' + '}';
+    }
 }

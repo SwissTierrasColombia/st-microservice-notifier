@@ -121,7 +121,13 @@ public class NotificationInputIntegrationsDto implements Serializable {
         html += "<br><div>--</div>";
         html += "SISTEMA DE TRANSICIÓN</div>";
         return html;
-
     }
 
+    @Override
+    public String toString() {
+        return "NotificationInputIntegrationsDto{" + "userCode=" + userCode + ", email='" + email + '\'' + ", type='"
+                + type + '\'' + ", status=" + status + ", integrationStatus='" + integrationStatus + '\'' + ", mpio='"
+                + mpio + '\'' + ", dpto='" + dpto + '\'' + ", integrationDate=" + integrationDate + ", siteURL='"
+                + siteURL + '\'' + ", siteEmail='" + siteEmail + '\'' + '}';
+    }
 }

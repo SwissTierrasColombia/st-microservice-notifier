@@ -121,7 +121,13 @@ public class NotificationMunicipalityManagementDto implements Serializable {
         html += "<br><div>--</div>";
         html += "SISTEMA DE TRANSICIÓN</div>";
         return html;
-
     }
 
+    @Override
+    public String toString() {
+        return "NotificationMunicipalityManagementDto{" + "userCode=" + userCode + ", email='" + email + '\''
+                + ", type='" + type + '\'' + ", status=" + status + ", mpio='" + mpio + '\'' + ", dpto='" + dpto + '\''
+                + ", startDate=" + startDate + ", supportFile='" + supportFile + '\'' + ", siteURL='" + siteURL + '\''
+                + ", siteEmail='" + siteEmail + '\'' + '}';
+    }
 }

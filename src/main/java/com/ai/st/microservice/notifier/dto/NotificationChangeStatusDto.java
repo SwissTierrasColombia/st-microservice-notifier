@@ -29,4 +29,8 @@ public class NotificationChangeStatusDto implements Serializable {
         this.status = status;
     }
 
+    @Override
+    public String toString() {
+        return "NotificationChangeStatusDto{" + "notificationId=" + notificationId + ", status=" + status + '}';
+    }
 }

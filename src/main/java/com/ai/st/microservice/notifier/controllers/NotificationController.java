@@ -2,22 +2,18 @@ package com.ai.st.microservice.notifier.controllers;
 
 import java.util.List;
 
+import com.ai.st.microservice.common.dto.general.BasicResponseDto;
+import com.ai.st.microservice.notifier.services.tracing.SCMTracing;
+import com.ai.st.microservice.notifier.services.tracing.TracingKeyword;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.ai.st.microservice.notifier.business.NotificationBusiness;
-import com.ai.st.microservice.notifier.dto.BasicResponseDto;
 import com.ai.st.microservice.notifier.dto.NotificationAssignmentOperationMunicipalityDto;
 import com.ai.st.microservice.notifier.dto.NotificationChangeStatusDto;
 import com.ai.st.microservice.notifier.dto.NotificationDeliveryOfInputsDto;
@@ -37,7 +33,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
-@Api(value = "Manage Users-Roles", description = "Manage Users-Roles", tags = { "Administration" })
+@Api(value = "Manage Users-Roles", tags = { "Administration" })
 @RestController
 @RequestMapping("api/notifier/v1/")
 public class NotificationController {
@@ -50,65 +46,78 @@ public class NotificationController {
     @Value("${st.site.email}")
     public String siteEmail;
 
-    @Autowired
-    private NotificationBusiness notificationBusiness;
+    private final NotificationBusiness notificationBusiness;
 
-    @RequestMapping(value = "/list/{userCode}/{status}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public NotificationController(NotificationBusiness notificationBusiness) {
+        this.notificationBusiness = notificationBusiness;
+    }
+
+    @GetMapping(value = "/list/{userCode}/{status}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Get list notifications")
     @ApiResponses(value = { @ApiResponse(code = 201, message = "Notifications List", response = List.class),
             @ApiResponse(code = 500, message = "Error Server", response = String.class) })
     @ResponseBody
-    public ResponseEntity<Object> notificationsList(@PathVariable(name = "userCode", required = true) Long userCode,
-            @PathVariable(name = "status", required = true) int status) {
+    public ResponseEntity<?> getNotificationsByUser(@PathVariable(name = "userCode") Long userCode,
+            @PathVariable(name = "status") int status) {
 
         HttpStatus httpStatus;
         Object responseDto;
 
         try {
+
+            SCMTracing.setTransactionName("getNotificationsByUser");
+
             responseDto = notificationBusiness.getNotifications(userCode, status);
             httpStatus = HttpStatus.OK;
 
         } catch (Exception e) {
-            log.error("Error WorkspaceV1Controller@createWorkspace#General ---> " + e.getMessage());
+            log.error("Error WorkspaceV1Controller@getNotificationsByUser#General ---> " + e.getMessage());
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
-            responseDto = new BasicResponseDto(e.getMessage(), 3);
+            responseDto = new BasicResponseDto(e.getMessage());
+            SCMTracing.sendError(e.getMessage());
         }
 
         return new ResponseEntity<>(responseDto, httpStatus);
     }
 
-    @RequestMapping(value = "/notify/change_status", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/notify/change_status", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Get list notifications")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Notifications List", response = NotificationChangeStatusDto.class),
             @ApiResponse(code = 500, message = "Error Server", response = String.class) })
     @ResponseBody
-    public ResponseEntity<Object> notificationsChangeStatus(@RequestBody NotificationChangeStatusDto req) {
+    public ResponseEntity<?> changeNotificationStatus(@RequestBody NotificationChangeStatusDto req) {
 
         HttpStatus httpStatus;
         Object responseDto;
 
         try {
+
+            SCMTracing.setTransactionName("changeNotificationStatus");
+            SCMTracing.addCustomParameter(TracingKeyword.BODY_REQUEST, req.toString());
+
             responseDto = notificationBusiness.changeNotificationStatus(req.getNotificationId(), req.getStatus());
             httpStatus = HttpStatus.OK;
 
         } catch (Exception e) {
-            log.error("Error WorkspaceV1Controller@createWorkspace#General ---> " + e.getMessage());
+            log.error("Error WorkspaceV1Controller@changeNotificationStatus#General ---> " + e.getMessage());
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
-            responseDto = new BasicResponseDto(e.getMessage(), 3);
+            responseDto = new BasicResponseDto(e.getMessage());
+            SCMTracing.sendError(e.getMessage());
         }
 
         return new ResponseEntity<>(responseDto, httpStatus);
     }
 
-    /** Nuevo Usuario */
-    @RequestMapping(value = "/notify/new_user", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/notify/new_user", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Create notification")
-    @ApiResponses(value = { @ApiResponse(code = 201, message = "Create user", response = NotificationDto.class),
+    @ApiResponses(value = { @ApiResponse(code = 201, message = "Notification sent", response = NotificationDto.class),
             @ApiResponse(code = 500, message = "Error Server", response = String.class) })
     @ResponseBody
-    public ResponseEntity<Object> sendNotificationNewUser(
-            @RequestBody NotificationNewUserDto requestCreateNotification) {
+    public ResponseEntity<?> sendNotificationNewUser(@RequestBody NotificationNewUserDto requestCreateNotification) {
+
+        SCMTracing.setTransactionName("sendNotificationNewUser");
+        SCMTracing.addCustomParameter(TracingKeyword.BODY_REQUEST, requestCreateNotification.toString());
 
         requestCreateNotification.setSiteEmail(siteEmail);
         requestCreateNotification.setSiteURL(siteURL);
@@ -122,15 +131,17 @@ public class NotificationController {
         return this.newNotification(notification);
     }
 
-    /** Asignación Gestión Municipio */
-    @RequestMapping(value = "/notify/municipality_management_assignment", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/notify/municipality_management_assignment", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Create notification")
-    @ApiResponses(value = { @ApiResponse(code = 201, message = "Create user", response = NotificationDto.class),
+    @ApiResponses(value = { @ApiResponse(code = 201, message = "Notification sent", response = NotificationDto.class),
             @ApiResponse(code = 500, message = "Error Server", response = String.class) })
     @ResponseBody
-    public ResponseEntity<Object> sendNotificationMunicipalityManagementAssignment(
+    public ResponseEntity<?> sendNotificationMunicipalityManagementAssignment(
             @RequestBody NotificationMunicipalityManagementDto requestCreateNotification) {
 
+        SCMTracing.setTransactionName("sendNotificationMunicipalityManagementAssignment");
+        SCMTracing.addCustomParameter(TracingKeyword.BODY_REQUEST, requestCreateNotification.toString());
+
         requestCreateNotification.setSiteEmail(siteEmail);
         requestCreateNotification.setSiteURL(siteURL);
 
@@ -143,15 +154,17 @@ public class NotificationController {
         return this.newNotification(notification);
     }
 
-    /** Asignación Operación Municipio */
-    @RequestMapping(value = "/notify/assignment_operation_municipality", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/notify/assignment_operation_municipality", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Create notification")
-    @ApiResponses(value = { @ApiResponse(code = 201, message = "Create user", response = NotificationDto.class),
+    @ApiResponses(value = { @ApiResponse(code = 201, message = "Notification sent", response = NotificationDto.class),
             @ApiResponse(code = 500, message = "Error Server", response = String.class) })
     @ResponseBody
-    public ResponseEntity<Object> sendNotificationAssignmentOperationMunicipality(
+    public ResponseEntity<?> sendNotificationAssignmentOperationMunicipality(
             @RequestBody NotificationAssignmentOperationMunicipalityDto requestCreateNotification) {
 
+        SCMTracing.setTransactionName("sendNotificationAssignmentOperationMunicipality");
+        SCMTracing.addCustomParameter(TracingKeyword.BODY_REQUEST, requestCreateNotification.toString());
+
         requestCreateNotification.setSiteEmail(siteEmail);
         requestCreateNotification.setSiteURL(siteURL);
 
@@ -164,15 +177,17 @@ public class NotificationController {
         return this.newNotification(notification);
     }
 
-    /** Solicitud de Insumos */
-    @RequestMapping(value = "/notify/input_request", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/notify/input_request", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Create notification")
-    @ApiResponses(value = { @ApiResponse(code = 201, message = "Create user", response = NotificationDto.class),
+    @ApiResponses(value = { @ApiResponse(code = 201, message = "Notification sent", response = NotificationDto.class),
             @ApiResponse(code = 500, message = "Error Server", response = String.class) })
     @ResponseBody
-    public ResponseEntity<Object> sendNotificationInputRequest(
+    public ResponseEntity<?> sendNotificationInputRequest(
             @RequestBody NotificationInputRequestDto requestCreateNotification) {
 
+        SCMTracing.setTransactionName("sendNotificationInputRequest");
+        SCMTracing.addCustomParameter(TracingKeyword.BODY_REQUEST, requestCreateNotification.toString());
+
         requestCreateNotification.setSiteEmail(siteEmail);
         requestCreateNotification.setSiteURL(siteURL);
 
@@ -185,15 +200,17 @@ public class NotificationController {
         return this.newNotification(notification);
     }
 
-    /** Cargue de Insumo XTF */
-    @RequestMapping(value = "/notify/load_of_inputs", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/notify/load_of_inputs", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Create notification")
-    @ApiResponses(value = { @ApiResponse(code = 201, message = "Create user", response = NotificationDto.class),
+    @ApiResponses(value = { @ApiResponse(code = 201, message = "Notification sent", response = NotificationDto.class),
             @ApiResponse(code = 500, message = "Error Server", response = String.class) })
     @ResponseBody
-    public ResponseEntity<Object> sendNotificationLoadOfInputs(
+    public ResponseEntity<?> sendNotificationLoadOfInputs(
             @RequestBody NotificationLoadOfInputsDto requestCreateNotification) {
 
+        SCMTracing.setTransactionName("sendNotificationLoadOfInputs");
+        SCMTracing.addCustomParameter(TracingKeyword.BODY_REQUEST, requestCreateNotification.toString());
+
         requestCreateNotification.setSiteEmail(siteEmail);
         requestCreateNotification.setSiteURL(siteURL);
 
@@ -206,15 +223,17 @@ public class NotificationController {
         return this.newNotification(notification);
     }
 
-    /** Integración de Insumos XTF */
-    @RequestMapping(value = "/notify/input_integrations", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/notify/input_integrations", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Create notification")
-    @ApiResponses(value = { @ApiResponse(code = 201, message = "Create user", response = NotificationDto.class),
+    @ApiResponses(value = { @ApiResponse(code = 201, message = "Notification sent", response = NotificationDto.class),
             @ApiResponse(code = 500, message = "Error Server", response = String.class) })
     @ResponseBody
-    public ResponseEntity<Object> sendNotificationInputIntegrations(
+    public ResponseEntity<?> sendNotificationInputIntegrations(
             @RequestBody NotificationInputIntegrationsDto requestCreateNotification) {
 
+        SCMTracing.setTransactionName("sendNotificationInputIntegrations");
+        SCMTracing.addCustomParameter(TracingKeyword.BODY_REQUEST, requestCreateNotification.toString());
+
         requestCreateNotification.setSiteEmail(siteEmail);
         requestCreateNotification.setSiteURL(siteURL);
 
@@ -227,15 +246,17 @@ public class NotificationController {
         return this.newNotification(notification);
     }
 
-    /** Asignación de Tarea */
-    @RequestMapping(value = "/notify/task_assignment", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/notify/task_assignment", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Create notification")
-    @ApiResponses(value = { @ApiResponse(code = 201, message = "Create user", response = NotificationDto.class),
+    @ApiResponses(value = { @ApiResponse(code = 201, message = "Notification sent", response = NotificationDto.class),
             @ApiResponse(code = 500, message = "Error Server", response = String.class) })
     @ResponseBody
-    public ResponseEntity<Object> sendNotificationTaskAssignment(
+    public ResponseEntity<?> sendNotificationTaskAssignment(
             @RequestBody NotificationTaskAssignmentDto requestCreateNotification) {
 
+        SCMTracing.setTransactionName("sendNotificationTaskAssignment");
+        SCMTracing.addCustomParameter(TracingKeyword.BODY_REQUEST, requestCreateNotification.toString());
+
         requestCreateNotification.setSiteEmail(siteEmail);
         requestCreateNotification.setSiteURL(siteURL);
 
@@ -248,15 +269,17 @@ public class NotificationController {
         return this.newNotification(notification);
     }
 
-    /** Generación de archivo de integración XTF */
-    @RequestMapping(value = "/notify/integration_file_generation", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/notify/integration_file_generation", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Create notification")
-    @ApiResponses(value = { @ApiResponse(code = 201, message = "Create user", response = NotificationDto.class),
+    @ApiResponses(value = { @ApiResponse(code = 201, message = "Notification sent", response = NotificationDto.class),
             @ApiResponse(code = 500, message = "Error Server", response = String.class) })
     @ResponseBody
-    public ResponseEntity<Object> sendNotificationIntegrationFileGeneration(
+    public ResponseEntity<?> sendNotificationIntegrationFileGeneration(
             @RequestBody NotificationIntegrationFileGenerationDto requestCreateNotification) {
 
+        SCMTracing.setTransactionName("sendNotificationIntegrationFileGeneration");
+        SCMTracing.addCustomParameter(TracingKeyword.BODY_REQUEST, requestCreateNotification.toString());
+
         requestCreateNotification.setSiteEmail(siteEmail);
         requestCreateNotification.setSiteURL(siteURL);
 
@@ -269,14 +292,16 @@ public class NotificationController {
         return this.newNotification(notification);
     }
 
-    /** Entrega de Insumos */
-    @RequestMapping(value = "/notify/delivery_of_inputs", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/notify/delivery_of_inputs", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Create notification")
-    @ApiResponses(value = { @ApiResponse(code = 201, message = "Create user", response = NotificationDto.class),
+    @ApiResponses(value = { @ApiResponse(code = 201, message = "Notification sent", response = NotificationDto.class),
             @ApiResponse(code = 500, message = "Error Server", response = String.class) })
     @ResponseBody
-    public ResponseEntity<Object> sendNotificationDeliveryOfInputs(
+    public ResponseEntity<?> sendNotificationDeliveryOfInputs(
             @RequestBody NotificationDeliveryOfInputsDto requestCreateNotification) {
+
+        SCMTracing.setTransactionName("sendNotificationDeliveryOfInputs");
+        SCMTracing.addCustomParameter(TracingKeyword.BODY_REQUEST, requestCreateNotification.toString());
 
         requestCreateNotification.setSiteEmail(siteEmail);
         requestCreateNotification.setSiteURL(siteURL);
@@ -290,13 +315,16 @@ public class NotificationController {
         return this.newNotification(notification);
     }
 
-    /** Recuperar cuenta */
-    @RequestMapping(value = "/notify/recover-account", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/notify/recover-account", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Create notification")
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Email sent", response = NotificationDto.class),
             @ApiResponse(code = 500, message = "Error Server", response = String.class) })
     @ResponseBody
-    public ResponseEntity<Object> recoverAccount(@RequestBody NotificationRecoverAccountDto requestRecoverAccount) {
+    public ResponseEntity<?> sendNotificationRecoverAccount(
+            @RequestBody NotificationRecoverAccountDto requestRecoverAccount) {
+
+        SCMTracing.setTransactionName("sendNotificationRecoverAccount");
+        SCMTracing.addCustomParameter(TracingKeyword.BODY_REQUEST, requestRecoverAccount.toString());
 
         requestRecoverAccount.setSiteEmail(siteEmail);
         requestRecoverAccount.setSiteURL(siteURL);
@@ -310,7 +338,7 @@ public class NotificationController {
         return this.newNotification(notification);
     }
 
-    public ResponseEntity<Object> newNotification(NotificationDto notification) {
+    public ResponseEntity<?> newNotification(NotificationDto notification) {
         HttpStatus httpStatus;
         Object responseDto;
         try {
@@ -318,13 +346,15 @@ public class NotificationController {
                     notification.getSubject(), notification.getMessage(), notification.getType());
             httpStatus = HttpStatus.CREATED;
         } catch (NotificationException e) {
-            log.error("Error NotificationController@createNotification#Business ---> " + e.getMessage());
+            log.error("Error NotificationController@newNotification#Business ---> " + e.getMessage());
             httpStatus = HttpStatus.UNPROCESSABLE_ENTITY;
-            responseDto = new BasicResponseDto(e.getMessage(), 2);
+            responseDto = new BasicResponseDto(e.getMessage());
+            SCMTracing.sendError(e.getMessage());
         } catch (Exception e) {
-            log.error("Error WorkspaceV1Controller@createWorkspace#General ---> " + e.getMessage());
+            log.error("Error NotificationController@newNotification#General ---> " + e.getMessage());
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
-            responseDto = new BasicResponseDto(e.getMessage(), 3);
+            responseDto = new BasicResponseDto(e.getMessage());
+            SCMTracing.sendError(e.getMessage());
         }
 
         return new ResponseEntity<>(responseDto, httpStatus);

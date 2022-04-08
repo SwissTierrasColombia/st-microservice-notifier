@@ -150,7 +150,14 @@ public class NotificationAssignmentOperationMunicipalityDto implements Serializa
         html += "<br><div>--</div>";
         html += "SISTEMA DE TRANSICIÓN</div>";
         return html;
-
     }
 
+    @Override
+    public String toString() {
+        return "NotificationAssignmentOperationMunicipalityDto{" + "userCode=" + userCode + ", email='" + email + '\''
+                + ", type='" + type + '\'' + ", status=" + status + ", manager='" + manager + '\'' + ", mpio='" + mpio
+                + '\'' + ", dpto='" + dpto + '\'' + ", requestNumber='" + requestNumber + '\'' + ", requestDateFrom="
+                + requestDateFrom + ", requestDateTo=" + requestDateTo + ", supportFile='" + supportFile + '\''
+                + ", siteURL='" + siteURL + '\'' + ", siteEmail='" + siteEmail + '\'' + '}';
+    }
 }
