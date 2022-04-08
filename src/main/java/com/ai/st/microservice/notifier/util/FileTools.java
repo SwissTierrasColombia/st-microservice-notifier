@@ -49,8 +49,9 @@ public class FileTools {
         String fileName = file.getOriginalFilename();
         saveFile(file.getBytes(), fileName, name, path, rewrite);
     }
-    
-    public static void saveFile(byte[] file, String originalFilename, String name, String path, boolean rewrite) throws IOException {
+
+    public static void saveFile(byte[] file, String originalFilename, String name, String path, boolean rewrite)
+            throws IOException {
         String fileName = originalFilename;
         new File(path).mkdirs();
         File f = new File(path + File.separatorChar + name + ".zip");
@@ -94,13 +95,13 @@ public class FileTools {
             return true;
         return false;
     }
-    
+
     public static byte[] getByteArrayFile(String path) {
-    	try {
-			return IOUtils.toByteArray(new FileInputStream(new File(path)));
-		} catch (IOException e) {
-			return null;
-		}
+        try {
+            return IOUtils.toByteArray(new FileInputStream(new File(path)));
+        } catch (IOException e) {
+            return null;
+        }
     }
 
 }

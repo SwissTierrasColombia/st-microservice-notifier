@@ -7,9 +7,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class StMicroserviceNotifierApplicationStartup implements ApplicationListener<ContextRefreshedEvent> {
 
-	@Override
-	public void onApplicationEvent(ContextRefreshedEvent event) {
+    @Override
+    public void onApplicationEvent(ContextRefreshedEvent event) {
 
-	}
+    }
 
 }
