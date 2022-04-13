@@ -14,7 +14,7 @@
 
 	<groupId>com.ai.st.microservice.notifier</groupId>
 	<artifactId>st-microservice-notifier</artifactId>
-	<version>1.1.2</version>
+	<version>1.3.0</version>
 	<name>st-microservice-notifier</name>
 	<description>Microservice Notifier</description>
 
@@ -118,6 +118,14 @@
 			<groupId>com.newrelic.agent.java</groupId>
 			<artifactId>newrelic-api</artifactId>
 			<version>7.5.0</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.newrelic.agent.java</groupId>
+			<artifactId>newrelic-agent</artifactId>
+			<version>7.5.0</version>
+			<scope>provided</scope>
 		</dependency>
 
 	</dependencies>
