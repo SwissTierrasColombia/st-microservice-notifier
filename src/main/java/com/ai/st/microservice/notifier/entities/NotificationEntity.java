@@ -29,7 +29,7 @@ public class NotificationEntity {
     @Column(name = "subject", nullable = false, length = 255)
     private String subject;
 
-    @Column(name = "message", nullable = false, length = 1025)
+    @Column(name = "message", nullable = false, length = 5000)
     private String message;
 
     @Column(name = "type", nullable = false, length = 255)
