@@ -4,29 +4,33 @@ import java.io.Serializable;
 
 public class NotificationChangeStatusDto implements Serializable {
 
-	private static final long serialVersionUID = 3050930525504636650L;
+    private static final long serialVersionUID = 3050930525504636650L;
 
-	private Long notificationId;
-	private int status;
-	
-	public NotificationChangeStatusDto() {
+    private Long notificationId;
+    private int status;
 
-	}
+    public NotificationChangeStatusDto() {
 
-	public Long getNotificationId() {
-		return notificationId;
-	}
+    }
 
-	public void setNotificationId(Long notificationId) {
-		this.notificationId = notificationId;
-	}
+    public Long getNotificationId() {
+        return notificationId;
+    }
 
-	public int getStatus() {
-		return status;
-	}
+    public void setNotificationId(Long notificationId) {
+        this.notificationId = notificationId;
+    }
 
-	public void setStatus(int status) {
-		this.status = status;
-	}
+    public int getStatus() {
+        return status;
+    }
 
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "NotificationChangeStatusDto{" + "notificationId=" + notificationId + ", status=" + status + '}';
+    }
 }

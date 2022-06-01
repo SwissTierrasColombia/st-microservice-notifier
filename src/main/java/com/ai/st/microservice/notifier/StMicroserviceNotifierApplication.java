@@ -9,11 +9,11 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableFeignClients
 @EnableEurekaClient
 @SpringBootApplication
-@EntityScan({"com.ai.st.microservice.notifier.entities"})
+@EntityScan({ "com.ai.st.microservice.notifier.entities" })
 public class StMicroserviceNotifierApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(StMicroserviceNotifierApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(StMicroserviceNotifierApplication.class, args);
+    }
 
 }
