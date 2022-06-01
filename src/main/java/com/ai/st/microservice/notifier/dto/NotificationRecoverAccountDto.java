@@ -114,4 +114,11 @@ public class NotificationRecoverAccountDto implements Serializable {
         return html;
     }
 
+    @Override
+    public String toString() {
+        return "NotificationRecoverAccountDto{" + "userCode=" + userCode + ", email='" + email + '\'' + ", type='"
+                + type + '\'' + ", status=" + status + ", code='" + code + '\'' + ", expirationDate='" + expirationDate
+                + '\'' + ", username='" + username + '\'' + ", siteURL='" + siteURL + '\'' + ", siteEmail='" + siteEmail
+                + '\'' + '}';
+    }
 }
